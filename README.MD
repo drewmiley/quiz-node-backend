@@ -1,1 +1,38 @@
 # quiz-node-backend
+
+## Installation
+
+1. `npm install`
+2. `npm start`
+
+## (Planned) Endpoints
+
+### POST /newquiz(options)
+
+Create + Save a new quiz, can pass a selection of option params.
+
+Response made up of `code`, `quiz`.
+
+### GET /quiz(code)
+
+Get quiz by code
+
+Response made up of `quiz`.
+
+### GET /leaderboards(user?)
+
+Get leaderboards, optionally by user.
+
+Response made up of `leaderboard` array.
+
+### GET /leaderboard(code)
+
+Get leaderboard by quiz code.
+
+Response made up of `leaderboard`.
+
+### POST /answers(code, user)
+
+Post answer to quiz by code and user.
+
+Response made up of `code`, `score`, `user`.
