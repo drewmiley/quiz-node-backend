@@ -25,9 +25,11 @@ router.route('/newquiz')
         res.json({ code: '', quiz: [] });
     });
 router.route('/quiz/:code')
-    .get((req, res) => {
+    .get(async (req, res) => {
+        const endpointResponse = await fetch('https://opentdb.com/api.php?amount=10');
+        const data = await endpointResponse.json();
         console.log(req.params.code);
-        res.json({ code: '', quiz: [] });
+        res.json({ code: '', quiz: [data] });
     });
 router.route('/leaderboards/:user*?')
     .get((req, res) => {
