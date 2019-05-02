@@ -17,19 +17,19 @@ Response made up of `code`, `quiz`.
 
 Get quiz by code
 
-Response made up of `quiz`.
+Response made up of `code`, `quiz`.
 
 ### GET /leaderboards(user?)
 
 Get leaderboards, optionally by user.
 
-Response made up of `leaderboard` array.
+Response made up of `code`, `leaderboard` array.
 
 ### GET /leaderboard(code)
 
 Get leaderboard by quiz code.
 
-Response made up of `leaderboard`.
+Response made up of `code`, `leaderboard`.
 
 ### POST /answers(code, user)
 
