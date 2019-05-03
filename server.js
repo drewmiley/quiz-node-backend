@@ -54,11 +54,13 @@ router.route('/leaderboards')
             if (err) {
                 res.send(err);
             }
-            if (req.query.user) {
-                // TODO: Implement
-                console.log(req.query.user);
-            }
-            res.json(leaderboards);
+            const responseLeaderboards = req.query.user ?
+                leaderboards.filter(leaderboard =>
+                    leaderboard.results
+                        .map(result => result.user)
+                        .includes(req.query.user)
+                ) : leaderboards;
+            res.json(responseLeaderboards);
         });
     });
 router.route('/leaderboards/:code')
