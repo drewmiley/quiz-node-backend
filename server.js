@@ -30,7 +30,13 @@ router.route('/newquiz')
             if (err) {
                 res.send(err);
             }
-            res.json(util.transformDBQuizToAPIQuiz(quiz));
+            const leaderboard = { code: quiz.code, results: [] };
+            Leaderboard.create(leaderboard, err1 => {
+                if (err1) {
+                    res.send(err1);
+                }
+                res.json(util.transformDBQuizToAPIQuiz(quiz));
+            });
         });
     });
 router.route('/quiz/:code')
@@ -44,20 +50,47 @@ router.route('/quiz/:code')
     });
 router.route('/leaderboards')
     .get((req, res) => {
-        console.log(req.query.user);
-        res.json([{ code: '', leaderboard: {} }]);
+        Leaderboard.find((err, leaderboards) => {
+            if (err) {
+                res.send(err);
+            }
+            if (req.query.user) {
+                // TODO: Implement
+                console.log(req.query.user);
+            }
+            res.json(leaderboards);
+        });
     });
 router.route('/leaderboards/:code')
     .get((req, res) => {
-        console.log(req.params.code);
-        res.json({ code: '', leaderboard: {} });
+        Leaderboard.findOne({ 'code': req.params.code }, (err, leaderboard) => {
+            if (err) {
+                res.send(err);
+            }
+            res.json(leaderboard);
+        });
     });
 router.route('/answers/:code/:user')
     .post((req, res) => {
-        console.log(req.params.code);
-        console.log(req.params.user);
-        console.log(req.body.answers);
-        res.json({ code: '', score: 0, user: '' });
+        Quiz.findOne({ 'code': req.params.code }, (err, quiz) => {
+            if (err) {
+                res.send(err);
+            }
+            // TODO: Implement
+            const score = 0;
+            Leaderboard.findOne({ 'code': req.params.code }, (err1, leaderboard) => {
+                if (err1) {
+                    res.send(err1);
+                }
+                leaderboard.results.push({ score, user: req.params.user });
+                leaderboard.save(err2 => {
+                    if (err2) {
+                        res.send(err2);
+                    }
+                    res.json({ code: req.params.code, score, user: req.params.user });
+                });
+            });
+        });
     });
 app.use('/api', router);
 app.listen(8080);
