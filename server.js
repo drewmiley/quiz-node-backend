@@ -22,7 +22,7 @@ const Leaderboard = require('./Leaderboard');
 const util = require('./util');
 
 router.route('/newquiz')
-    .post((req, res) => {
+    .post(async (req, res) => {
         // const endpointResponse = await fetch('https://opentdb.com/api.php?amount=10');
         // const data = await endpointResponse.json();
         const data = {
@@ -54,12 +54,17 @@ router.route('/newquiz')
                 {"category":"Entertainment: Japanese Anime & Manga","type":"multiple","difficulty":"hard","question":"Which person from &quot;JoJo&#039;s Bizarre Adventure&quot; does NOT house a reference to a band, artist, or song earlier than 1980?","correct_answer":"Giorno Giovanna","incorrect_answers":["Josuke Higashikata","Jolyne Cujoh","Johnny Joestar"]}
             ]
         };
-        const retrievedQuiz = util.transformResponseToQuizSchema(data);
         console.log(req.body.options);
-        res.json(util.transformDBQuizToAPIQuiz(retrievedQuiz));
+        const quiz = util.transformResponseToQuizSchema(data);
+        Quiz.create(quiz, err => {
+            if (err) {
+                res.send(err);
+            }
+            res.json(util.transformDBQuizToAPIQuiz(quiz));
+        });
     });
 router.route('/quiz/:code')
-    .get(async (req, res) => {
+    .get((req, res) => {
         const data = {
             "response_code":0,
             "results":[

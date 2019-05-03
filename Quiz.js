@@ -5,7 +5,7 @@ const QuizSchema = new Schema({
     code: String,
     questions: [{
         category: String,
-        type: String,
+        questionType: String,
         difficulty: String,
         question: String,
         answer: String,

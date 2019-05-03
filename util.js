@@ -5,7 +5,7 @@ module.exports.transformResponseToQuizSchema = response => {
     const questions = response.results.map(d => {
         return {
             category: d.category,
-            type: d.type,
+            questionType: d.type,
             difficulty: d.difficulty,
             question: d.question,
             answer: d.correct_answer,
