@@ -78,8 +78,9 @@ router.route('/answers/:code/:user')
             if (err) {
                 res.send(err);
             }
-            // TODO: Implement
-            const score = 0;
+            const score = quiz.questions.filter(d => {
+                return d.answer == req.body.answers.find(ans => ans.question == d.question).answer;
+            }).length;
             Leaderboard.findOne({ 'code': req.params.code }, (err1, leaderboard) => {
                 if (err1) {
                     res.send(err1);

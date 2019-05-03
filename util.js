@@ -7,6 +7,32 @@ const generateQuizCode = () => {
     return `${ day < 10 ? '0' + day : day }${ month < 10 ? '0' + month : month }${ year }${ ('0000' + random).slice(-4) }`;
 };
 
+const categoryMap = {
+    'General Knowledge': 9,
+    'Books': 10,
+    'Film': 11,
+    'Music': 12,
+    'Musicals and Theatres': 13,
+    'Television': 14,
+    'Video Games': 15,
+    'Board Games': 16,
+    'Science and Nature': 17,
+    'Computers': 18,
+    'Mathematics': 19,
+    'Mythology': 20,
+    'Sports': 21,
+    'Geography': 22,
+    'History': 23,
+    'Politics': 24,
+    'Art': 25,
+    'Celebrities': 26,
+    'Animals': 27,
+    'Vehicles': 28,
+    'Comics': 29,
+    'Gadgets': 30,
+    'Cartoon and Animations': 32
+};
+
 module.exports.transformOptions = options => {
     let queryString = '';
     if (options.amount) {
@@ -14,11 +40,8 @@ module.exports.transformOptions = options => {
     } else {
         queryString += 'amount=10';
     }
-    if (options.category) {
-        // TODO: Implement
-        // <select name="trivia_category" class="form-control">
-		// 	<option value="any">Any Category</option>
-		// 	<option value="9">General Knowledge</option><option value="10">Entertainment: Books</option><option value="11">Entertainment: Film</option><option value="12">Entertainment: Music</option><option value="13">Entertainment: Musicals &amp; Theatres</option><option value="14">Entertainment: Television</option><option value="15">Entertainment: Video Games</option><option value="16">Entertainment: Board Games</option><option value="17">Science &amp; Nature</option><option value="18">Science: Computers</option><option value="19">Science: Mathematics</option><option value="20">Mythology</option><option value="21">Sports</option><option value="22">Geography</option><option value="23">History</option><option value="24">Politics</option><option value="25">Art</option><option value="26">Celebrities</option><option value="27">Animals</option><option value="28">Vehicles</option><option value="29">Entertainment: Comics</option><option value="30">Science: Gadgets</option><option value="31">Entertainment: Japanese Anime &amp; Manga</option><option value="32">Entertainment: Cartoon &amp; Animations</option>		</select>
+    if (options.category && categoryMap[options.category]) {
+        queryString += `category=${ categoryMap[options.category] }`;
     }
     if (options.difficulty && ['easy', 'medium', 'hard'].includes(options.difficulty)) {
         queryString += `difficulty=${ options.difficulty }`;
