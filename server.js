@@ -7,9 +7,9 @@ const QuizSchema = new Schema({
     questions: [{
         category: String,
         type: String,
-        difficulty: Number,
+        difficulty: String,
         question: String,
-        answers: String,
+        answer: String,
         incorrectAnswers: [String]
     }]
 });
@@ -71,8 +71,32 @@ router.route('/newquiz')
                 {"category":"Entertainment: Japanese Anime & Manga","type":"multiple","difficulty":"hard","question":"Which person from &quot;JoJo&#039;s Bizarre Adventure&quot; does NOT house a reference to a band, artist, or song earlier than 1980?","correct_answer":"Giorno Giovanna","incorrect_answers":["Josuke Higashikata","Jolyne Cujoh","Johnny Joestar"]}
             ]
         };
+        const generateQuizCode = () => 1;
+        const transformResponseToQuizSchema = response => {
+            const code = generateQuizCode();
+            const questions = response.results.map(d => {
+                return {
+                    category: d.category,
+                    type: d.type,
+                    difficulty: d.difficulty,
+                    question: d.question,
+                    answer: d.correct_answer,
+                    incorrectAnswers: d.incorrect_answers
+                };
+            });
+            return { code, questions };
+        };
+        const retrievedQuiz = transformResponseToQuizSchema(data);
+        const code = retrievedQuiz.code;
+        const quiz = retrievedQuiz.questions.map(d => {
+            return {
+                question: d.question,
+                answer: d.answer,
+                incorrectAnswers: d.incorrectAnswers
+            }
+        });
         console.log(req.body.options);
-        res.json({ code: '', quiz: [] });
+        res.json({ code, quiz });
     });
 router.route('/quiz/:code')
     .get(async (req, res) => {
@@ -105,8 +129,32 @@ router.route('/quiz/:code')
                 {"category":"Entertainment: Japanese Anime & Manga","type":"multiple","difficulty":"hard","question":"Which person from &quot;JoJo&#039;s Bizarre Adventure&quot; does NOT house a reference to a band, artist, or song earlier than 1980?","correct_answer":"Giorno Giovanna","incorrect_answers":["Josuke Higashikata","Jolyne Cujoh","Johnny Joestar"]}
             ]
         };
+        const generateQuizCode = () => 1;
+        const transformResponseToQuizSchema = response => {
+            const code = generateQuizCode();
+            const questions = response.results.map(d => {
+                return {
+                    category: d.category,
+                    type: d.type,
+                    difficulty: d.difficulty,
+                    question: d.question,
+                    answer: d.correct_answer,
+                    incorrectAnswers: d.incorrect_answers
+                };
+            });
+            return { code, questions };
+        };
+        const retrievedQuiz = transformResponseToQuizSchema(data);
+        const code = retrievedQuiz.code;
+        const quiz = retrievedQuiz.questions.map(d => {
+            return {
+                question: d.question,
+                answer: d.answer,
+                incorrectAnswers: d.incorrectAnswers
+            }
+        });
         console.log(req.params.code);
-        res.json({ code: '', quiz: [data] });
+        res.json({ code, quiz });
     });
 router.route('/leaderboards')
     .get((req, res) => {
