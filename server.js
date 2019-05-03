@@ -23,9 +23,8 @@ const util = require('./util');
 
 router.route('/newquiz')
     .post(async (req, res) => {
-        const endpointResponse = await fetch('https://opentdb.com/api.php?amount=10');
+        const endpointResponse = await fetch(`https://opentdb.com/api.php?${ util.transformOptions(req.body.options) }`);
         const data = await endpointResponse.json();
-        console.log(req.body.options);
         const quiz = util.transformResponseToQuizSchema(data);
         Quiz.create(quiz, err => {
             if (err) {
