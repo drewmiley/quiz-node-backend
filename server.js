@@ -36,8 +36,7 @@ router.route('/newquiz')
     });
 router.route('/quiz/:code')
     .get((req, res) => {
-        console.log(req.params.code);
-        Quiz.findOne({ 'code': '1' }, (err, quiz) => {
+        Quiz.findOne({ 'code': req.params.code }, (err, quiz) => {
             if (err) {
                 res.send(err);
             }
