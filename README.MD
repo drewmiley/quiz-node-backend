@@ -33,6 +33,6 @@ Response made up of `code`, `leaderboard`.
 
 ### POST /answers(code, user)
 
-Post answer to quiz by code and user.
+Post answers to quiz by code and user.
 
 Response made up of `code`, `score`, `user`.

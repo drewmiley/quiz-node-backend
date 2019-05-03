@@ -108,9 +108,9 @@ router.route('/quiz/:code')
         console.log(req.params.code);
         res.json({ code: '', quiz: [data] });
     });
-router.route('/leaderboards/:user*?')
+router.route('/leaderboards')
     .get((req, res) => {
-        console.log(req.params.user);
+        console.log(req.query.user);
         res.json([{ code: '', leaderboard: {} }]);
     });
 router.route('/leaderboards/:code')
@@ -119,9 +119,10 @@ router.route('/leaderboards/:code')
         res.json({ code: '', leaderboard: {} });
     });
 router.route('/answers/:code/:user')
-    .get((req, res) => {
+    .post((req, res) => {
         console.log(req.params.code);
         console.log(req.params.user);
+        console.log(req.body.answers);
         res.json({ code: '', score: 0, user: '' });
     });
 // router.route('/users')
