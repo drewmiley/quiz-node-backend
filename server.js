@@ -1,28 +1,5 @@
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/test');
-const Schema = mongoose.Schema;
-
-const QuizSchema = new Schema({
-    code: String,
-    questions: [{
-        category: String,
-        type: String,
-        difficulty: String,
-        question: String,
-        answer: String,
-        incorrectAnswers: [String]
-    }]
-});
-const Quiz = mongoose.model('Quiz', QuizSchema);
-
-const LeaderboardSchema = new Schema({
-    code: String,
-    results: [{
-        score: Number,
-        user: String
-    }]
-});
-const Leaderboard = mongoose.model('Leaderboard', LeaderboardSchema);
 
 const fetch = require('node-fetch');
 const express = require('express');
@@ -38,6 +15,12 @@ router.use((req, res, next) => {
 router.get('/', (req, res) => {
     res.json({ message: 'Server running' });
 });
+
+const Quiz = require('./Quiz');
+const Leaderboard = require('./Leaderboard');
+
+const util = require('./util');
+
 router.route('/newquiz')
     .post((req, res) => {
         // const endpointResponse = await fetch('https://opentdb.com/api.php?amount=10');
@@ -71,32 +54,9 @@ router.route('/newquiz')
                 {"category":"Entertainment: Japanese Anime & Manga","type":"multiple","difficulty":"hard","question":"Which person from &quot;JoJo&#039;s Bizarre Adventure&quot; does NOT house a reference to a band, artist, or song earlier than 1980?","correct_answer":"Giorno Giovanna","incorrect_answers":["Josuke Higashikata","Jolyne Cujoh","Johnny Joestar"]}
             ]
         };
-        const generateQuizCode = () => 1;
-        const transformResponseToQuizSchema = response => {
-            const code = generateQuizCode();
-            const questions = response.results.map(d => {
-                return {
-                    category: d.category,
-                    type: d.type,
-                    difficulty: d.difficulty,
-                    question: d.question,
-                    answer: d.correct_answer,
-                    incorrectAnswers: d.incorrect_answers
-                };
-            });
-            return { code, questions };
-        };
-        const retrievedQuiz = transformResponseToQuizSchema(data);
-        const code = retrievedQuiz.code;
-        const quiz = retrievedQuiz.questions.map(d => {
-            return {
-                question: d.question,
-                answer: d.answer,
-                incorrectAnswers: d.incorrectAnswers
-            }
-        });
+        const retrievedQuiz = util.transformResponseToQuizSchema(data);
         console.log(req.body.options);
-        res.json({ code, quiz });
+        res.json(util.transformDBQuizToAPIQuiz(retrievedQuiz));
     });
 router.route('/quiz/:code')
     .get(async (req, res) => {
@@ -129,32 +89,9 @@ router.route('/quiz/:code')
                 {"category":"Entertainment: Japanese Anime & Manga","type":"multiple","difficulty":"hard","question":"Which person from &quot;JoJo&#039;s Bizarre Adventure&quot; does NOT house a reference to a band, artist, or song earlier than 1980?","correct_answer":"Giorno Giovanna","incorrect_answers":["Josuke Higashikata","Jolyne Cujoh","Johnny Joestar"]}
             ]
         };
-        const generateQuizCode = () => 1;
-        const transformResponseToQuizSchema = response => {
-            const code = generateQuizCode();
-            const questions = response.results.map(d => {
-                return {
-                    category: d.category,
-                    type: d.type,
-                    difficulty: d.difficulty,
-                    question: d.question,
-                    answer: d.correct_answer,
-                    incorrectAnswers: d.incorrect_answers
-                };
-            });
-            return { code, questions };
-        };
-        const retrievedQuiz = transformResponseToQuizSchema(data);
-        const code = retrievedQuiz.code;
-        const quiz = retrievedQuiz.questions.map(d => {
-            return {
-                question: d.question,
-                answer: d.answer,
-                incorrectAnswers: d.incorrectAnswers
-            }
-        });
+        const retrievedQuiz = util.transformResponseToQuizSchema(data);
         console.log(req.params.code);
-        res.json({ code, quiz });
+        res.json(util.transformDBQuizToAPIQuiz(retrievedQuiz));
     });
 router.route('/leaderboards')
     .get((req, res) => {
