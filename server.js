@@ -80,6 +80,7 @@ router.route('/answers/:code/:user')
             if (err) {
                 res.send(err);
             }
+            // TODO: Debug this for work on submit answers
             const score = quiz.questions.filter(d => {
                 return d.answer == req.body.answers.find(ans => ans.question == d.question).answer;
             }).length;
