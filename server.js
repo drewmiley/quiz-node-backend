@@ -63,7 +63,7 @@ router.route('/leaderboards')
             res.json(responseLeaderboards);
         });
     });
-router.route('/leaderboards/:code')
+router.route('/leaderboard/:code')
     .get((req, res) => {
         Leaderboard.findOne({ 'code': req.params.code }, (err, leaderboard) => {
             if (err) {
