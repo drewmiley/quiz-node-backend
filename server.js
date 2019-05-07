@@ -1,10 +1,12 @@
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/test');
 
-const fetch = require('node-fetch');
 const express = require('express');
 const app = express();
+const cors = require('cors');
+const fetch = require('node-fetch');
 const bodyParser = require('body-parser');
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 const router = express.Router();
