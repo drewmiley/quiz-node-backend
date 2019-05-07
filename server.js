@@ -80,11 +80,8 @@ router.route('/answers/:code/:user')
             if (err) {
                 res.send(err);
             }
-            // TODO: Debug this for work on submit answers
             const score = quiz.questions.filter(d => {
-                console.log(req.body);
                 const qa = req.body.answers.find(ans => ans.question == d.question);
-                console.log(qa);
                 return qa && d.answer == qa.answer;
             }).length;
             Leaderboard.findOne({ 'code': req.params.code }, (err1, leaderboard) => {
