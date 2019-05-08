@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/test');
+mongoose.connect(process.env.MONGODB || 'mongodb://localhost/test');
 
 const express = require('express');
 const app = express();
