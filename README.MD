@@ -5,7 +5,7 @@
 1. `npm install`
 2. `npm start`
 
-## (Planned) Endpoints
+## Endpoints
 
 ### POST /newquiz(options)
 
