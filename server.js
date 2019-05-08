@@ -99,4 +99,4 @@ router.route('/answers/:code/:user')
         });
     });
 app.use('/api', router);
-app.listen(8080);
+app.listen(process.env.PORT || 8080);
