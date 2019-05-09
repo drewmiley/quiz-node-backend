@@ -27,6 +27,15 @@ const Leaderboard = require('./Leaderboard');
 
 const util = require('./util');
 
+router.route('/quizcodes')
+    .get((req, res) => {
+        Quiz.find((err, quizzes) => {
+            if (err) {
+                res.send(err);
+            }
+            res.json(quizzes.map(quiz => quiz.code));
+        });
+    });
 router.route('/newquiz')
     .post(async (req, res) => {
         const endpointResponse = await fetch(`https://opentdb.com/api.php?${ util.transformOptions(req.body.options) }`);
