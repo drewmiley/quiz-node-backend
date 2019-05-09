@@ -16,8 +16,10 @@ router.use((req, res, next) => {
     console.log('Request made - logging from middleware');
     next();
 });
+
+const apiInfo = require('./apiInfo');
 router.get('/', (req, res) => {
-    res.json({ message: 'Server running' });
+    res.json(apiInfo);
 });
 
 const Quiz = require('./Quiz');
