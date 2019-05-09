@@ -7,8 +7,7 @@ const cors = require('cors');
 const fetch = require('node-fetch');
 const bodyParser = require('body-parser');
 
-const corsOptions = require('./corsOptions');
-app.use(cors(corsOptions));
+app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
