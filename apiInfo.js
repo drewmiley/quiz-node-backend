@@ -1,5 +1,12 @@
 module.exports = [
     {
+        name: 'Valid Quiz Codes',
+        route: '/quizcodes',
+        params: null,
+        query: null,
+        body: null
+    },
+    {
         name: 'Generate Quiz',
         route: '/newquiz',
         params: null,

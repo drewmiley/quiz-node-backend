@@ -6,6 +6,30 @@
 	},
 	"item": [
 		{
+			"name": "/quizcodes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/quizcodes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"quizcodes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "/newquiz",
 			"request": {
 				"method": "POST",

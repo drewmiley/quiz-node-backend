@@ -7,6 +7,12 @@
 
 ## Endpoints
 
+### GET /quizcodes
+
+Get valid quiz codes
+
+Response is array of strings.
+
 ### POST /newquiz(options)
 
 Create + Save a new quiz, can pass a selection of option params.
