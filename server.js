@@ -6,7 +6,10 @@ const app = express();
 const cors = require('cors');
 const fetch = require('node-fetch');
 const bodyParser = require('body-parser');
-app.use(cors());
+
+const corsOptions = require('./corsOptions');
+app.use(cors(corsOptions));
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 const router = express.Router();
