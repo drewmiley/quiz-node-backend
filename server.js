@@ -38,7 +38,7 @@ router.route('/quizcodes')
     });
 router.route('/quizoptions')
     .get((req, res) => {
-        res.json('quiz options');
+        res.json(util.validOptions);
     });
 router.route('/newquiz')
     .post(async (req, res) => {

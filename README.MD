@@ -17,7 +17,7 @@ Response is array of strings.
 
 Get valid quiz options
 
-Response is array of option objects.
+Response is object.
 
 ### POST /newquiz(options)
 
