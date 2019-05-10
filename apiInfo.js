@@ -7,6 +7,13 @@ module.exports = [
         body: null
     },
     {
+        name: 'Valid Quiz Options',
+        route: '/quizoptions',
+        params: null,
+        query: null,
+        body: null
+    },
+    {
         name: 'Generate Quiz',
         route: '/newquiz',
         params: null,

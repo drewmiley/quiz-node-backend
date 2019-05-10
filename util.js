@@ -33,20 +33,29 @@ const categoryMap = {
     'Cartoon and Animations': 32
 };
 
+const validOptions = {
+    amount: 'integer',
+    category: Object.keys(categoryMap),
+    difficulty: ['easy', 'medium', 'hard'],
+    type: ['multiple', 'boolean']
+}
+
+module.exports.validOptions = validOptions;
+
 module.exports.transformOptions = options => {
     let queryString = '';
-    if (options.amount) {
+    if (options.amount && parseInt(options.amount, 10)) {
         queryString += `amount=${ options.amount }`;
     } else {
         queryString += 'amount=10';
     }
-    if (options.category && categoryMap[options.category]) {
+    if (options.category && validOptions.category.includes(options.category)) {
         queryString += `category=${ categoryMap[options.category] }`;
     }
-    if (options.difficulty && ['easy', 'medium', 'hard'].includes(options.difficulty)) {
+    if (options.difficulty && validOptions.difficulty.includes(options.difficulty)) {
         queryString += `difficulty=${ options.difficulty }`;
     }
-    if (options.type && ['multiple', 'boolean'].includes(options.type)) {
+    if (options.type && validOptions.type.includes(options.type)) {
         queryString += `type=${ options.type }`;
     }
     return queryString;

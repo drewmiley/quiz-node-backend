@@ -36,6 +36,10 @@ router.route('/quizcodes')
             res.json(quizzes.map(quiz => quiz.code));
         });
     });
+router.route('/quizoptions')
+    .get((req, res) => {
+        res.json(util.validOptions);
+    });
 router.route('/newquiz')
     .post(async (req, res) => {
         const endpointResponse = await fetch(`https://opentdb.com/api.php?${ util.transformOptions(req.body.options) }`);
