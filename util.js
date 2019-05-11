@@ -50,13 +50,13 @@ module.exports.transformOptions = options => {
         queryString += 'amount=10';
     }
     if (options.category && validOptions.category.includes(options.category)) {
-        queryString += `category=${ categoryMap[options.category] }`;
+        queryString += `&category=${ categoryMap[options.category] }`;
     }
     if (options.difficulty && validOptions.difficulty.includes(options.difficulty)) {
-        queryString += `difficulty=${ options.difficulty }`;
+        queryString += `&difficulty=${ options.difficulty }`;
     }
     if (options.type && validOptions.type.includes(options.type)) {
-        queryString += `type=${ options.type }`;
+        queryString += `&type=${ options.type }`;
     }
     return queryString;
 }
