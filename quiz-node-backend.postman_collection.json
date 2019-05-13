@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "4314e462-472a-4bc9-8dc1-1617e607cddb",
+		"_postman_id": "d3d4f2f8-e221-44d6-9a14-7cd5fd42cfa5",
 		"name": "quiz-node-backend",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -24,6 +24,30 @@
 					"path": [
 						"api",
 						"quizcodes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/quizoptions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/quizoptions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"quizoptions"
 					]
 				}
 			},
