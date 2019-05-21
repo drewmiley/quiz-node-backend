@@ -1,3 +1,5 @@
+const { decode } = require('he');
+
 const generateQuizCode = () => {
     const today = new Date();
     const day = today.getDate();
@@ -68,9 +70,9 @@ module.exports.transformResponseToQuizSchema = response => {
             category: d.category,
             questionType: d.type,
             difficulty: d.difficulty,
-            question: d.question,
-            answer: d.correct_answer,
-            incorrectAnswers: d.incorrect_answers
+            question: decode(d.question),
+            answer: decode(d.correct_answer),
+            incorrectAnswers: d.incorrect_answers.map(ia => decode(ia))
         };
     });
     return { code, questions };

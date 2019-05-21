@@ -12,6 +12,7 @@
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
     "express": "^4.16.4",
+    "he": "^1.2.0",
     "mongoose": "^5.4.3",
     "node-fetch": "^2.3.0"
   }
