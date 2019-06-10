@@ -1,4 +1,4 @@
-const { decode } = require('he');
+import { decode } from 'he';
 
 const generateQuizCode = () => {
     const today = new Date();
