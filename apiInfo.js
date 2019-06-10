@@ -1,4 +1,4 @@
-module.exports = [
+export default [
     {
         name: 'Valid Quiz Codes',
         route: '/quizcodes',

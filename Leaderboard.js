@@ -9,4 +9,4 @@ const LeaderboardSchema = new Schema({
     }]
 });
 const Leaderboard = mongoose.model('Leaderboard', LeaderboardSchema);
-module.exports = Leaderboard;
+export default Leaderboard;

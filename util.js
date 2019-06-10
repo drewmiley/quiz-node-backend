@@ -42,9 +42,9 @@ const validOptions = {
     type: ['any', 'multiple', 'boolean']
 }
 
-module.exports.validOptions = validOptions;
+export const validOptions = validOptions;
 
-module.exports.transformOptions = options => {
+export const transformOptions = options => {
     let queryString = '';
     if (options.amount && parseInt(options.amount, 10)) {
         queryString += `amount=${ options.amount }`;
@@ -63,7 +63,7 @@ module.exports.transformOptions = options => {
     return queryString;
 }
 
-module.exports.transformResponseToQuizSchema = response => {
+export const transformResponseToQuizSchema = response => {
     const code = generateQuizCode();
     const questions = response.results.map(d => {
         return {
@@ -78,7 +78,7 @@ module.exports.transformResponseToQuizSchema = response => {
     return { code, questions };
 };
 
-module.exports.transformDBQuizToAPIQuiz = retrievedQuiz => {
+export const transformDBQuizToAPIQuiz = retrievedQuiz => {
     const code = retrievedQuiz.code;
     const quiz = retrievedQuiz.questions.map(d => {
         return {
