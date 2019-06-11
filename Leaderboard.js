@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const LeaderboardSchema = new Schema({
@@ -9,4 +9,4 @@ const LeaderboardSchema = new Schema({
     }]
 });
 const Leaderboard = mongoose.model('Leaderboard', LeaderboardSchema);
-module.exports = Leaderboard;
+export default Leaderboard;

@@ -1,4 +1,5 @@
-const { decode } = require('he');
+import he from 'he';
+const { decode } = he;
 
 const generateQuizCode = () => {
     const today = new Date();
@@ -42,9 +43,7 @@ const validOptions = {
     type: ['any', 'multiple', 'boolean']
 }
 
-module.exports.validOptions = validOptions;
-
-module.exports.transformOptions = options => {
+const transformOptions = options => {
     let queryString = '';
     if (options.amount && parseInt(options.amount, 10)) {
         queryString += `amount=${ options.amount }`;
@@ -63,7 +62,7 @@ module.exports.transformOptions = options => {
     return queryString;
 }
 
-module.exports.transformResponseToQuizSchema = response => {
+const transformResponseToQuizSchema = response => {
     const code = generateQuizCode();
     const questions = response.results.map(d => {
         return {
@@ -76,9 +75,9 @@ module.exports.transformResponseToQuizSchema = response => {
         };
     });
     return { code, questions };
-};
+}
 
-module.exports.transformDBQuizToAPIQuiz = retrievedQuiz => {
+const transformDBQuizToAPIQuiz = retrievedQuiz => {
     const code = retrievedQuiz.code;
     const quiz = retrievedQuiz.questions.map(d => {
         return {
@@ -88,4 +87,11 @@ module.exports.transformDBQuizToAPIQuiz = retrievedQuiz => {
         }
     });
     return { code, quiz };
+}
+
+export default {
+    validOptions,
+    transformOptions,
+    transformResponseToQuizSchema,
+    transformDBQuizToAPIQuiz
 }

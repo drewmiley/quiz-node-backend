@@ -1,11 +1,11 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 mongoose.connect(process.env.MONGODB || 'mongodb://localhost/test');
 
-const express = require('express');
+import express from 'express';
 const app = express();
-const cors = require('cors');
-const fetch = require('node-fetch');
-const bodyParser = require('body-parser');
+import cors from 'cors';
+import fetch from 'node-fetch';
+import bodyParser from 'body-parser';
 
 app.use(cors());
 
@@ -17,15 +17,15 @@ router.use((req, res, next) => {
     next();
 });
 
-const apiInfo = require('./apiInfo');
+import apiInfo from './apiInfo.js';
 router.get('/', (req, res) => {
     res.json(apiInfo);
 });
 
-const Quiz = require('./Quiz');
-const Leaderboard = require('./Leaderboard');
+import Quiz from './Quiz.js';
+import Leaderboard from './Leaderboard.js';
 
-const util = require('./util');
+import util from './util.js';
 
 router.route('/quizcodes')
     .get((req, res) => {
